@@ -33,4 +33,11 @@ $(document).on('dblclick', 'li', function () {
     .fadeOut(500, function () {
       $(this).remove();
     });
+  var indice = $('li').index($(this));
+
+  window.listaCompras = window.listaCompras.filter(
+    (compra, index) => indice != index
+  );
+
+  localStorage.setItem('listaCompras', JSON.stringify(window.listaCompras));
 });

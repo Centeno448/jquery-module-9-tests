@@ -111,3 +111,23 @@ it('index.js carga los datos del almacenamiento local al iniciar la app | Asegú
     window.localStorage.getItem('listaCompras').includes('DesdeElInicio')
   ).toBe(true);
 });
+
+it('index.js al eliminar un li se elimina de localStorage | Asegúrate que al eliminar un li, elimines de localStorage el mismo item', async () => {
+  let dbl = $.Event('dblclick');
+  let e = $.Event('keyup');
+
+  $('input[type="text"]').val('a eliminar local');
+
+  e.keyCode = 13;
+  $('input[type="text"]').trigger(e);
+
+  let lastLi = $('li:last-child');
+
+  lastLi.trigger(dbl);
+
+  await Timeout.set(500);
+
+  expect(
+    window.localStorage.getItem('listaCompras').includes('a eliminar local')
+  ).toBe(false);
+});
