@@ -121,13 +121,23 @@ it('index.js al eliminar un li se elimina de localStorage | Asegúrate que al el
   e.keyCode = 13;
   $('input[type="text"]').trigger(e);
 
+  const originalAmount = JSON.parse(
+    window.localStorage.getItem('listaCompras')
+  ).length;
+
   let lastLi = $('li:last-child');
 
   lastLi.trigger(dbl);
 
   await Timeout.set(500);
 
+  expect(JSON.parse(window.localStorage.getItem('listaCompras')).length).toBe(
+    originalAmount - 1
+  );
+
   expect(
-    window.localStorage.getItem('listaCompras').includes('a eliminar local')
+    JSON.parse(window.localStorage.getItem('listaCompras')).includes(
+      'a eliminar local'
+    )
   ).toBe(false);
 });
